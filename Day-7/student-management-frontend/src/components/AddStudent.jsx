@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { addStudent } from '../services/StudentService';
 
-const AddStudent = async(student) => {
+const AddStudent = () => {
     const [student, setStudent] = useState({
         name: "",
         dob: "",
@@ -17,7 +17,7 @@ const AddStudent = async(student) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addStudent().then(() => {
+        addStudent(student).then(() => {
             setMessage("Student added successfully");
             setStudent({
                 name: "",
@@ -38,12 +38,39 @@ const AddStudent = async(student) => {
             <div>
                 <h2>Add Student</h2>
                 <form onSubmit={handleSubmit}>
-                    <input type='text' name='name' placeholder='Name' value={student.name} onChange={handleChange} />
-                    <input type='text' name='dob' placeholder='DOB' value={student.dob} onChange={handleChange} />
-                    <input type='text' name='department' placeholder='Department' value={student.department} onChange={handleChange} />
-                    <input type='text' name='email' placeholder='Email' value={student.email} onChange={handleChange} />
-                    <input type='text' name='phone' placeholder='Phone' value={student.phone} onChange={handleChange} />
+                    <div>
+                        <input type='text' name='name' placeholder='Name' value={student.name} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <input type='date' name='dob' placeholder='DOB' value={student.dob} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <select
+                            name="department"
+                            value={student.department}
+                            onChange={handleChange}
+                            >
+                            <option value="">-- Select Department --</option>
+                            <option value="CSE">CSE</option>
+                            <option value="CSM">CSM</option>
+                            <option value="CSD">CSD</option>
+                            <option value="IT">IT</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EEE">EEE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="CIVIL">CIVIL</option>
+                        </select>
+                    </div><br/>
+                    <div>
+                        <input type='text' name='email' placeholder='Email' value={student.email} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <input type='text' name='phone' placeholder='Phone' value={student.phone} onChange={handleChange} />
+                    </div><br/>
+                    <button type='submit'>Add Student</button>
+
                 </form>
+                {message && <p>{message}</p>}
             </div>
         </React.Fragment>
     );

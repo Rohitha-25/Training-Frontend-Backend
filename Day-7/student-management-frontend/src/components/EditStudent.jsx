@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { updateStudent } from '../services/StudentService';
 
 const EditStudent = () => {
-    const [id, setId] = useState("");
     const [student, setStudent] = useState({
+        id: "",
         name: "",
         email: "",
         phone: ""
@@ -15,11 +16,10 @@ const EditStudent = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateStudent(id, student)
+        updateStudent(student.id, student)
         .then(() => {
             setMessage("Student updated successfully!");
-            setId("");
-            setStudent({name: "", email: "", phone: ""});
+            setStudent({id: "", name: "", email: "", phone: ""});
         })
         .catch((err) => {
             console.error(err);
@@ -32,10 +32,21 @@ const EditStudent = () => {
             <div>
                 <h2>Edit Student</h2>
                 <form onSubmit={handleSubmit}>
-                    <input type='text' name='name' placeholder='Name' value={student.name} onChange={handleChange} />
-                    <input type='text' name='email' placeholder='Email' value={student.email} onChange={handleChange} />
-                    <input type='text' name='phone' placeholder='Phone' value={student.phone} onChange={handleChange} />
+                    <div>
+                        <input type='text' name='id' placeholder='Id' value={student.id} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <input type='text' name='name' placeholder='Name' value={student.name} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <input type='text' name='email' placeholder='Email' value={student.email} onChange={handleChange} />
+                    </div><br/>
+                    <div>
+                        <input type='text' name='phone' placeholder='Phone' value={student.phone} onChange={handleChange} />
+                    </div><br/>
+                    <button type='submit'>Edit Student</button>
                 </form>
+                {message && <p>{message}</p>}
             </div>
         </React.Fragment>
     );
